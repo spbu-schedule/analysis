@@ -1,3 +1,5 @@
+import os
+
 import pandas as pd
 import numpy as np
 from matplotlib import pyplot as plt
@@ -56,12 +58,14 @@ df = df[['Номер группы', 'Факультет', 'Курс', 'Преп�
 
 # Количество занятий по дням недели для учебных групп
 def tool_3_1(faculty, group, day):
+    name = 'tool_3_1~' + faculty + '~' + group + '~' + day + '.svg'
+    if os.path.isfile(name):
+        return 0, name
     week = time.strftime("%W", time.strptime(day, "%Y-%m-%d"))
     sns.countplot(
         df[(df['Номер группы'] == group) & (df['Факультет'] == faculty) & (df['Номер недели'] == week)]['День недели'])
     plt.title('Количество пар для определенной группы по дням недели')
-    name = 'tool_3_1~' + faculty + '~' + group + '~' + day + '.svg'
-    # plt.savefig(name)
+    plt.savefig(name)
     return 0, name
 
 
@@ -73,32 +77,40 @@ def tool_3_2(faculty, group, lesson):
 
 # Количество пар в неделю по дисциплинам
 def tool_3_3(faculty, group, day):
+    name = 'tool_3_3~' + faculty + '~' + group + '~' + day + '.svg'
+    if os.path.isfile(name):
+        return 0, name
     week = time.strftime("%W", time.strptime(day, "%Y-%m-%d"))
     sns.countplot(
         df[(df['Номер группы'] == group) & (df['Факультет'] == faculty) & (df['Номер недели'] == week)]['Предмет'])
     plt.title('Сравнение количества занятий по различным дисциплинам')
     plt.xticks(rotation=90)
-    name = 'tool_3_3~' + faculty + '~' + group + '~' + day + '.svg'
-    # plt.savefig(name)
+    plt.savefig(name)
     return 0, name
 
 
 # Соотношение лекций/практик по дисциплинам учебных групп
 def tool_3_4(faculty, group, lesson):
+    name = 'tool_3_4~' + faculty + '~' + group + '~' + lesson + '.svg'
+    if os.path.isfile(name):
+        return 0, name
     sns.countplot(
         df[(df['Номер группы'] == group) & (df['Предмет'] == lesson) & (df['Факультет'] == faculty)]['Вид занятия'])
     plt.title('Количество пар для определенного преподавателя по дням недели')
-    name = 'tool_3_4~' + faculty + '~' + group + '~' + lesson + '.svg'
-    # plt.savefig(name)
+    plt.savefig(name)
     return 0, name
 
 
 # Общая занятость факультетов
 def tool_3_5(faculty, day):
+    name = 'tool_3_5~' + faculty + '~' + day + '.svg'
+    if os.path.isfile(name):
+        return 0, name
     week = time.strftime("%W", time.strptime(day, "%Y-%m-%d"))
     sns.countplot(df[(df['Факультет'] == faculty) & (df['Номер недели'] == week)]['День недели'])
     plt.ylabel('Количество пар')
     plt.title('Загруженность факультета')
-    name = 'tool_3_3~' + faculty + '~' + day + '.svg'
-    # plt.savefig(name)
+    plt.savefig(name)
     return 0, name
+
+

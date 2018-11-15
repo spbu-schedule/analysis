@@ -1,3 +1,5 @@
+import os
+
 import pandas as pd
 import numpy as np
 from matplotlib import pyplot as plt
@@ -66,34 +68,42 @@ def tool_2_1_2(faculty, lesson):
 
 # Занятость преподавателей, обучающих выбранную группу
 def tool_2_2_1(faculty, number):
+    name = 'tool_2_2_1~' + faculty + '~' + number + '.svg'
+    if os.path.isfile(name):
+        return 0, name
     sns.countplot(df[(df['Факультет'] == faculty) & (df['Номер группы'] == number)]['Преподаватель'])
     plt.ylabel('Количество пар')
     plt.title('Загруженность преподавателей')
     plt.xticks(rotation=90)
-    name = 'tool_2_2_1~' + faculty + '~' + number + '.svg'
-    # plt.savefig(name)
+    plt.savefig(name)
     return 0, name
 
 
 # Занятость преподавателей, ведущих выбранную дисциплину
 def tool_2_2_2(faculty, lesson):
+    name = 'tool_2_2_2~' + faculty + '~' + lesson + '.svg'
+    if os.path.isfile(name):
+        return 0, name
     sns.countplot(df[(df['Факультет'] == faculty) & (df['Предмет'] == lesson)]['Преподаватель'])
     plt.ylabel('Количество пар')
     plt.title('Загруженность преподавателей')
     plt.xticks(rotation=90)
-    name = 'tool_2_2_2~' + faculty + '~' + lesson + '.svg'
-    # plt.savefig(name)
+    plt.savefig(name)
     return 0, name
 
 
 # Занятость определённых преподавателей
 def tool_2_3(faculty, teacherName, day):
+    name = 'tool_2_2_2~' + faculty + '~' + teacherName + '~' + day + '.svg'
+    if os.path.isfile(name):
+        return 0, name
     week5 = time.strftime("%W", time.strptime(day, "%Y-%m-%d"))
     sns.countplot(
         df[(df['Преподаватель'] == teacherName) & (df['Факультет'] == faculty) & (df['Номер недели'] == week5)][
             'День недели'])
     plt.title('Количество пар для определенного преподавателя по дням недели')
-    name = 'tool_2_2_2~' + faculty + '~' + teacherName + '~' + day + '.svg'
-    # plt.savefig('test.svg')
-    # plt.savefig(name)
+    plt.savefig(name)
     return 0, name
+
+
+print(tool_2_3('Математико-механический факультет', 'DB47ACD1-8A86-4382-9F59-971AA37EA375', '2018-09-15'))
