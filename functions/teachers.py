@@ -106,4 +106,4 @@ def tool_2_3(faculty, teacherName, day):
     return 0, name
 
 
-print(tool_2_3('Математико-механический факультет', 'DB47ACD1-8A86-4382-9F59-971AA37EA375', '2018-09-15'))
+
